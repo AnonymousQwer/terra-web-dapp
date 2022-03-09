@@ -173,6 +173,8 @@ const CreatePollForm = ({ type, headings }: Props) => {
         Key.oracle,
       ],
       [PollType.COMMUNITY_SPEND]: [...defaultKeys, Key.recipient, Key.amount],
+      [PollType.UPDATE_PRIORITY]: [...defaultKeys],
+      [PollType.REMOVE_PRICE]: [...defaultKeys],
     }
 
     return additionalKeys[type]
@@ -350,21 +352,6 @@ const CreatePollForm = ({ type, headings }: Props) => {
 
   const select = useSelectAsset(selectAssetConfig)
 
-  const descriptionLabel = {
-    [PollType.TEXT]: "Description",
-    [PollType.TEXT_WHITELIST]: "Reason for listing",
-    [PollType.TEXT_PREIPO]: "Reason for listing",
-    [PollType.WHITELIST]: "Description",
-    [PollType.PREIPO]: "Description",
-    [PollType.DELIST_COLLATERAL]: "Description",
-    [PollType.DELIST_ASSET]: "Description",
-    [PollType.INFLATION]: "Reason for modifying weight parameter",
-    [PollType.MINT_UPDATE]: "Reason for modifying mint parameter",
-    [PollType.GOV_UPDATE]: "Reason for modifying governance parameter",
-    [PollType.COLLATERAL]: "Reasons for modifying collateral parameter",
-    [PollType.COMMUNITY_SPEND]: "Reason for community pool spending",
-  }[type]
-
   const weightPlaceholders = {
     [Key.weight]: div(getWeight(asset), 100),
   }
@@ -405,7 +392,7 @@ const CreatePollForm = ({ type, headings }: Props) => {
         input: { placeholder: "", autoFocus: true },
       },
       [Key.description]: {
-        label: descriptionLabel,
+        label: "Description",
         textarea: { placeholder: "" },
       },
       [Key.link]: {
@@ -774,6 +761,8 @@ const CreatePollForm = ({ type, headings }: Props) => {
       contract: community,
       msg: toBase64({ spend: communitySpend }),
     },
+    [PollType.UPDATE_PRIORITY]: undefined,
+    [PollType.REMOVE_PRICE]: undefined,
   }[type]
 
   const msg = toBase64({
