@@ -173,8 +173,8 @@ const CreatePollForm = ({ type, headings }: Props) => {
         Key.oracle,
       ],
       [PollType.COMMUNITY_SPEND]: [...defaultKeys, Key.recipient, Key.amount],
-      [PollType.UPDATE_PRIORITY]: [...defaultKeys],
-      [PollType.REMOVE_PRICE]: [...defaultKeys],
+      [PollType.UPDATE_PRIORITY]: [...defaultKeys, Key.asset],
+      [PollType.REMOVE_PRICE]: [...defaultKeys, Key.asset],
     }
 
     return additionalKeys[type]
